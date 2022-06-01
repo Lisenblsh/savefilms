@@ -1,9 +1,13 @@
-package com.lis.safefilms.data
+package com.lis.safefilms.data.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.lis.safefilms.data.ProductionStatus
+import com.lis.safefilms.data.Type
 
-data class KinopoiskAPIModel (
+@Entity(tableName = "film")
+data class KinopoiskAPIDB (
+    @PrimaryKey val kinopoiskID: Int,
     val imdbID: String? = null,
     val nameRu: String? = null,
     val nameEn: String? = null,
@@ -37,10 +41,8 @@ data class KinopoiskAPIModel (
     val type: Type,
     val ratingMPAA: String? = null,
     val ratingAgeLimits: String? = null,
-    val countries: List<Country>,
-    val genres: List<Genre>,
-    val startYear: Any? = null,
-    val endYear: Any? = null,
+    val startYear: Int? = null,
+    val endYear: Int? = null,
     val serial: Boolean? = null,
     val shortFilm: Boolean? = null,
     val completed: Boolean? = null,
@@ -48,19 +50,3 @@ data class KinopoiskAPIModel (
     val has3D: Boolean? = null,
     val lastSync: String
 )
-
-data class Country (
-    val country: String
-)
-
-data class Genre (
-    val genre: String
-)
-
-enum class Type {
-    FILM, VIDEO, TV_SERIES, MINI_SERIES, TV_SHOW
-}
-
-enum class ProductionStatus {
-    FILMING, PRE_PRODUCTION, COMPLETED, ANNOUNCED, UNKNOWN, POST_PRODUCTION
-}
