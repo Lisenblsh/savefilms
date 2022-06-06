@@ -1,6 +1,7 @@
 package com.lis.safefilms.ui.adapters
 
 import android.graphics.Color
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
