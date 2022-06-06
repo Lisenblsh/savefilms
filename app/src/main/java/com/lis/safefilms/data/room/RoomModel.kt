@@ -41,6 +41,8 @@ data class KinopoiskAPIDB (
     val type: Type,
     val ratingMPAA: String? = null,
     val ratingAgeLimits: String? = null,
+    val countries: String? = null,
+    val genres: String? = null,
     val startYear: Int? = null,
     val endYear: Int? = null,
     val serial: Boolean? = null,

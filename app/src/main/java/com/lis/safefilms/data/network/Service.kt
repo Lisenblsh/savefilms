@@ -24,6 +24,7 @@ interface Service {
 
                     val requestBuilder = origin.newBuilder()
                         .addHeader("X-Api-Key", API_KEY)
+                        .addHeader("Content-Type", "application/json")
                         .method(origin.method, origin.body)
 
                     val request = requestBuilder.build()

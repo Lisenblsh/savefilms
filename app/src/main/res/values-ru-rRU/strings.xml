@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Safe films</string>
+    <string name="film_year">%1$d год</string>
+    <string name="film_length">%1$dч %2$dмин</string>
+</resources>
