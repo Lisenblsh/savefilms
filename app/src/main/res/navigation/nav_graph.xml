@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/filmListFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.lis.safefilms.ui.fragment.MainFragment"
+        android:id="@+id/filmListFragment"
+        android:name="com.lis.safefilms.ui.fragment.FilmListFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_film_list" >
+        <action
+            android:id="@+id/action_filmListFragment_to_currentFilmFragment"
+            app:destination="@id/currentFilmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currentFilmFragment"
+        android:name="com.lis.safefilms.CurrentFilmFragment"
+        android:label="fragment_current_film"
+        tools:layout="@layout/fragment_current_film" >
+        <argument
+            android:name="film_id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

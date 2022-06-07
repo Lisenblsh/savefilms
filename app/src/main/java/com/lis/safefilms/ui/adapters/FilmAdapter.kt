@@ -21,9 +21,12 @@ class FilmAdapter :
 
     interface OnItemClickListener {
         fun onItemClick(id: Int)
+
+        fun onItemLongClick(id:Int)
     }
 
     private lateinit var clickListener: OnItemClickListener
+
 
     fun setOnClickListener(listener: OnItemClickListener) {
         this.clickListener = listener
@@ -73,6 +76,13 @@ class FilmAdapter :
                     clickListener.onItemClick(id)
                 }
             }
+            itemView.setOnLongClickListener {
+                val id = film?.kinopoiskID
+                if(id != null){
+                    clickListener.onItemLongClick(id)
+                }
+                return@setOnLongClickListener true
+            }
         }
 
         fun bind(film: KinopoiskAPIDB) {
@@ -86,8 +96,8 @@ class FilmAdapter :
             titleRu.text = film.nameRu
             setDescription(film)
             ImageFun().setImage(film.posterURLPreview, posterImageview)
-            setGenres(film)
-            setCountries(film)
+            genres.text = film.genres?.replace(',', ' ')
+            country.text = film.countries?.replace(',',' ')
             setRatingColor(film)
             year.text = itemView.resources.getString(R.string.film_year, film.year)
             filmLength.text = film.filmLength?.let { getFilmLength(it) }
@@ -131,34 +141,6 @@ class FilmAdapter :
                 }
             }
             ratingKinopoisk.text = film.ratingKinopoisk.toString()
-        }
-
-        private fun SmallFilmCardBinding.setCountries(film: KinopoiskAPIDB) {
-            val countryList = film.countries?.split(',')
-            if (!countryList.isNullOrEmpty()) {
-                countryList.forEach { country ->
-                    val textView = TextView(itemView.context)
-                    textView.text = country
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                    textView.id = View.generateViewId()
-                    constraintLayout.addView(textView)
-                    flowCountry.addView(textView)
-                }
-            }
-        }
-
-        private fun SmallFilmCardBinding.setGenres(film: KinopoiskAPIDB) {
-            val genresList = film.genres?.split(',')
-            if (!genresList.isNullOrEmpty()) {
-                genresList.take(3).forEach { genre ->
-                    val textView = TextView(itemView.context)
-                    textView.text = genre
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-                    textView.id = View.generateViewId()
-                    constraintLayout.addView(textView)
-                    flowGenres.addView(textView)
-                }
-            }
         }
     }
 }
