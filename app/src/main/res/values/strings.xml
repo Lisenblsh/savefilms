@@ -5,4 +5,9 @@
     <string name="film_year">%1$d year</string>
     <string name="film_length">%1$dh %2$dmin</string>
     <string name="film_rating_age" translatable="false">%1$s+</string>
+    <string name="open_film_in_app">Open</string>
+    <string name="delete">Delete</string>
+    <string name="write_token">write token</string>
+    <string name="token_hint">token</string>
+    <string name="get_token_web">Get your token at https://kinopoiskapiunofficial.tech/</string>
 </resources>

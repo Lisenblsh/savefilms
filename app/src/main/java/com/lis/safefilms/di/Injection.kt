@@ -7,7 +7,7 @@ import com.lis.safefilms.data.Repository
 import com.lis.safefilms.data.network.Service
 
 object Injection {
-    fun provideRepository(): Repository{
-        return Repository(Service.create())
+    fun provideRepository(apiKey: String): Repository{
+        return Repository(Service.create(apiKey))
     }
 }

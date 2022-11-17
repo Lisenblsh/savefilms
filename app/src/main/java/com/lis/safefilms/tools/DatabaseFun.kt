@@ -68,4 +68,14 @@ class DatabaseFun(private val database: FilmDatabase) {
             return@withTransaction database.filmDao().getFilms()
         }
     }
+
+    suspend fun getFilm(idFilm: Int): KinopoiskAPIDB {
+        return database.withTransaction {
+            return@withTransaction database.filmDao().getFilm(idFilm)
+        }
+    }
+
+    suspend fun deleteFilm(idFilm: Int){
+        database.filmDao().deleteFilm(idFilm)
+    }
 }

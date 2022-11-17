@@ -17,13 +17,13 @@ interface Service {
     companion object {
         private const val BASE_URL = "https://kinopoiskapiunofficial.tech/api/v2.2/films/"
 
-        fun create(): Service{
+        fun create(apiKey: String): Service{
             val httpClient = OkHttpClient.Builder()
                 .addInterceptor{chain ->
                     val origin = chain.request()
 
                     val requestBuilder = origin.newBuilder()
-                        .addHeader("X-Api-Key", API_KEY)
+                        .addHeader("X-Api-Key", apiKey)
                         .addHeader("Content-Type", "application/json")
                         .method(origin.method, origin.body)
 

@@ -1,19 +1,28 @@
 package com.lis.safefilms.ui.adapters
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isVisible
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lis.safefilms.R
+import com.lis.safefilms.data.room.FilmDatabase
 import com.lis.safefilms.data.room.KinopoiskAPIDB
 import com.lis.safefilms.databinding.SmallFilmCardBinding
+import com.lis.safefilms.tools.DatabaseFun
 import com.lis.safefilms.tools.ImageFun
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class FilmAdapter :
@@ -22,7 +31,7 @@ class FilmAdapter :
     interface OnItemClickListener {
         fun onItemClick(id: Int)
 
-        fun onItemLongClick(id:Int)
+        fun onItemLongClick(id: Int)
     }
 
     private lateinit var clickListener: OnItemClickListener
@@ -64,7 +73,6 @@ class FilmAdapter :
     }
 
     inner class FilmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         private var film: KinopoiskAPIDB? = null
         private var binding: SmallFilmCardBinding
 
@@ -77,8 +85,13 @@ class FilmAdapter :
                 }
             }
             itemView.setOnLongClickListener {
+                binding.flowButtons.visibility = if (binding.flowButtons.isVisible) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
+                }
                 val id = film?.kinopoiskID
-                if(id != null){
+                if (id != null) {
                     clickListener.onItemLongClick(id)
                 }
                 return@setOnLongClickListener true
@@ -86,6 +99,7 @@ class FilmAdapter :
         }
 
         fun bind(film: KinopoiskAPIDB) {
+            binding.flowButtons.visibility = View.GONE
             this.film = film
             binding.showFilmData(film)
         }
@@ -97,12 +111,37 @@ class FilmAdapter :
             setDescription(film)
             ImageFun().setImage(film.posterURLPreview, posterImageview)
             genres.text = film.genres?.replace(',', ' ')
-            country.text = film.countries?.replace(',',' ')
+            country.text = film.countries?.replace(',', ' ')
             setRatingColor(film)
             year.text = itemView.resources.getString(R.string.film_year, film.year)
             filmLength.text = film.filmLength?.let { getFilmLength(it) }
             setAgeRating(film)
 
+            initOpenButton(film)
+            initDeleteButton(film)
+
+        }
+
+        private fun SmallFilmCardBinding.initDeleteButton(film: KinopoiskAPIDB) {
+            deleteFilm.setOnClickListener {
+                itemView.findViewTreeLifecycleOwner()?.lifecycleScope?.launch {
+                    DatabaseFun(FilmDatabase.getInstance(itemView.context)).deleteFilm(film.kinopoiskID)
+                    submitList(currentList)
+                }
+            }
+        }
+
+        private fun SmallFilmCardBinding.initOpenButton(film: KinopoiskAPIDB) {
+            openInApp.setOnClickListener {
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.data = Uri.parse(film.webURL)
+                    startActivity(itemView.context,intent,null)
+                } catch (e: Exception) {
+
+                }
+            }
         }
 
         private fun SmallFilmCardBinding.setDescription(film: KinopoiskAPIDB) {

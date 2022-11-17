@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/currentFilmFragment"
-        android:name="com.lis.safefilms.CurrentFilmFragment"
+        android:name="com.lis.safefilms.ui.CurrentFilmFragment"
         android:label="fragment_current_film"
         tools:layout="@layout/fragment_current_film" >
         <argument

@@ -3,4 +3,9 @@
     <string name="app_name">Safe films</string>
     <string name="film_year">%1$d год</string>
     <string name="film_length">%1$dч %2$dмин</string>
+    <string name="open_film_in_app">Открыть</string>
+    <string name="delete">Удалить</string>
+    <string name="write_token">Записать токен</string>
+    <string name="token_hint">токен</string>
+    <string name="get_token_web">Получи токен на сайте https://kinopoiskapiunofficial.tech/</string>
 </resources>

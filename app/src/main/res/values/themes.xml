@@ -19,4 +19,9 @@
         <item name="android:textColor">@color/black</item>
         <item name="checkMarkTint">@color/black</item>
     </style>
+
+    <style name="foregroundGradient" parent="Theme.SafeFilms">
+        <item name="android:foreground">@drawable/gradient</item>
+        <item name="android:foregroundTint">@color/white</item>
+    </style>
 </resources>
