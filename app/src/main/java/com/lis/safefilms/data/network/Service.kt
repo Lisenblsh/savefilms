@@ -1,6 +1,5 @@
 package com.lis.safefilms.data.network
 
-import com.lis.safefilms.BuildConfig.API_KEY
 import com.lis.safefilms.data.KinopoiskAPIModel
 import okhttp3.OkHttpClient
 import retrofit2.Response
