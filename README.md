@@ -1,5 +1,3 @@
-![alt text](../main/preview.jpg | width=100)
 
-[[../main/preview.jpg|width=100px]]
-
+<img src="../main/preview.jpg" alt="alt text" width="200" height="100">
 
