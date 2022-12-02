@@ -1,3 +1,3 @@
 
-<img src="../main/preview.jpg" alt="alt text" width="200" height="100">
+<img src="../main/preview.jpg" alt="alt text" width="200" height="whatever">
 
